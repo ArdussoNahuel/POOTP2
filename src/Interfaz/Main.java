@@ -10,11 +10,19 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		int goles1=0;
 		LinkedList<Pais> listapaises= new LinkedList<Pais>();
 		cargarPaises(listapaises);
 		JOptionPane.showMessageDialog(null, mostrarPaises(listapaises));
-		System.out.println(Math.round(50*1.3/10));
-		System.out.println((int)((50*1.15)/10));
+		//System.out.println(Math.round(50*1.3/10));
+		//System.out.println((int)((50*1.15)/10));
+		System.out.println("Cant:"+Math.round(1.05*5));
+		for (int i=0; i< Math.round(1.2*50);i++) {
+			int aux=(int)(Math.random()*2*1.2);
+			System.out.println(aux);
+			goles1+=aux;
+		}
+		System.out.println(goles1);
 	}
 
 	

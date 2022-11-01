@@ -86,8 +86,10 @@ public class Pais {
 	}
 	
 	public Partido jugarPartido(Pais adversario) {
-		for (int i=0; i< this.getCalidad()*5) {
-			
+		int goles1=0;
+		int goles2=0;
+		for (int i=1; i< Math.round(this.getCalidad()*5);i++) {
+			goles1+=(int)(Math.random()*2);
 		}
 		Partido partido= new Partido();
 		return partido;
