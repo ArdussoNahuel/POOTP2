@@ -1,10 +1,10 @@
-package interfaz;
+package Interfaz;
 
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-import logica.*;
+import Logica.*;
 
 public class Main {
 
@@ -14,15 +14,17 @@ public class Main {
 		LinkedList<Pais> listapaises= new LinkedList<Pais>();
 		cargarPaises(listapaises);
 		JOptionPane.showMessageDialog(null, mostrarPaises(listapaises));
-		//System.out.println(Math.round(50*1.3/10));
+		/*System.out.println(Math.round(50*1.3/10));
 		//System.out.println((int)((50*1.15)/10));
 		System.out.println("Cant:"+Math.round(1.05*5));
-		for (int i=0; i< Math.round(1.2*50);i++) {
-			int aux=(int)(Math.random()*2*1.2);
+		for (int i=0; i< Math.round(1.2*5);i++) {
+			int aux=(int)Math.round(Math.random()*1);
 			System.out.println(aux);
+			System.out.println(Math.round(aux));
 			goles1+=aux;
 		}
-		System.out.println(goles1);
+		System.out.println(goles1);*/
+		grupos(listapaises);
 	}
 
 	
@@ -43,7 +45,7 @@ public class Main {
 		lista.add(new Pais(lista.size()+1,"Australia",0.9,0,"D",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Dinamarca",0.9,0,"D",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Tunez",0.7,0,"D",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Espa�a",1.1,0,"E",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"España",1.1,0,"E",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Costa Rica",0.7,0,"E",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Alemania",0.7,0,"E",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Japon",0.7,0,"E",true,new LinkedList<Partido>()));
@@ -75,9 +77,21 @@ public class Main {
 	}
 	
 	public static void grupos(LinkedList<Pais> lista) {
-		
+		int i=1;
 		for (Pais pais : lista) {
-			jugarPartido();
+			System.out.println("pais "+pais.getNombre());
+			i=1;
+			while (pais.getGrupo()==lista.get(lista.indexOf(pais)+i).getGrupo()) {
+				System.out.println("contra: "+lista.get(lista.indexOf(pais)+i).getNombre());
+				boolean empate=pais.jugarPartido(lista.get(lista.indexOf(pais)+i));
+				while (empate) {
+					JOptionPane.showMessageDialog(null, "Empate\n \nSe jugarán penales");
+					empate=pais.jugarPartido(lista.get(lista.indexOf(pais)+i));
+					System.out.println("Empate vale"+empate);
+				}
+				i++;
+			}
+			
 		}
 		
 	}

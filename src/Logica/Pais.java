@@ -1,6 +1,8 @@
-package logica;
+package Logica;
 
 import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
 
 public class Pais {
 
@@ -85,14 +87,33 @@ public class Pais {
 				+ grupo + ", estado=" + estado + ", partidos=" + partidos + "]";
 	}
 	
-	public Partido jugarPartido(Pais adversario) {
+	public boolean jugarPartido(Pais adversario) {
+		System.out.println("Se jeuga partido");
 		int goles1=0;
 		int goles2=0;
-		for (int i=1; i< Math.round(this.getCalidad()*5);i++) {
-			goles1+=(int)(Math.random()*2);
-		}
-		Partido partido= new Partido();
-		return partido;
+			for (int i=1; i< Math.round(this.getCalidad()*5);i++) {
+				goles1+=(int)Math.round(Math.random()*this.getCalidad());
+			}
+			for (int i=1; i< Math.round(adversario.getCalidad()*5);i++) {
+				goles2+=(int)Math.round(Math.random()*adversario.getCalidad());
+			}
+			System.out.println(this.getNombre()+" "+goles1+" "+adversario.getNombre()+" "+goles2);
+			if (goles1>goles2) {
+				System.out.println("ganador un equipo");
+				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Victoria",goles1));
+				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Derrota",goles2));
+				System.out.println("false");
+				return false;
+			} else if (goles1<goles2) {
+				System.out.println("ganador un equipo");
+				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Derrota",goles1));
+				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Victoria",goles2));
+				System.out.println("false");
+				return false;
+			} else {
+				System.out.println("True");
+				return true;
+			}
 	}
 	
 	
