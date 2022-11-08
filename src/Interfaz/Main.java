@@ -25,6 +25,7 @@ public class Main {
 		}
 		System.out.println(goles1);*/
 		grupos(listapaises);
+		mostrarPartidos(listapaises.get(1));
 	}
 
 	
@@ -78,22 +79,34 @@ public class Main {
 	
 	public static void grupos(LinkedList<Pais> lista) {
 		int i=1;
+		boolean fingrupo;
 		for (Pais pais : lista) {
 			System.out.println("pais "+pais.getNombre());
 			i=1;
-			while (pais.getGrupo()==lista.get(lista.indexOf(pais)+i).getGrupo()) {
+			fingrupo=true;
+			System.out.println(lista.indexOf(pais));
+			while (fingrupo &&lista.indexOf(pais)<31 && pais.getGrupo()==lista.get(lista.indexOf(pais)+i).getGrupo()) {
 				System.out.println("contra: "+lista.get(lista.indexOf(pais)+i).getNombre());
 				boolean empate=pais.jugarPartido(lista.get(lista.indexOf(pais)+i));
 				while (empate) {
-					JOptionPane.showMessageDialog(null, "Empate\n \nSe jugarán penales");
+					//JOptionPane.showMessageDialog(null, "Empate\n \nSe jugarán penales");
+					
 					empate=pais.jugarPartido(lista.get(lista.indexOf(pais)+i));
-					System.out.println("Empate vale"+empate);
 				}
 				i++;
+				if ((lista.indexOf(pais)+i)>31) {
+					fingrupo=false;
+				}
 			}
 			
 		}
 		
+	}
+	
+	public static void mostrarPartidos(Pais pais) {
+		for (Partido partidos : pais.getPartidos()) {
+			System.out.println("Partido contra: "+partidos.getAdversario().getNombre()+":\n"+partidos.getResultado()+" con "+partidos.getGoles());
+		}
 	}
 	
 }

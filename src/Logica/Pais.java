@@ -88,7 +88,6 @@ public class Pais {
 	}
 	
 	public boolean jugarPartido(Pais adversario) {
-		System.out.println("Se jeuga partido");
 		int goles1=0;
 		int goles2=0;
 			for (int i=1; i< Math.round(this.getCalidad()*5);i++) {
@@ -99,19 +98,14 @@ public class Pais {
 			}
 			System.out.println(this.getNombre()+" "+goles1+" "+adversario.getNombre()+" "+goles2);
 			if (goles1>goles2) {
-				System.out.println("ganador un equipo");
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Victoria",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Derrota",goles2));
-				System.out.println("false");
 				return false;
 			} else if (goles1<goles2) {
-				System.out.println("ganador un equipo");
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Derrota",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Victoria",goles2));
-				System.out.println("false");
 				return false;
 			} else {
-				System.out.println("True");
 				return true;
 			}
 	}
