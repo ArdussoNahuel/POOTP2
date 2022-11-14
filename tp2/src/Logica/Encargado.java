@@ -47,21 +47,22 @@ public class Encargado {
 	public LinkedList<Pais> grupos(LinkedList<Pais> lista) {
 		LinkedList<Pais> octavos = new LinkedList<Pais>();
 		int i=1;
-		int puntos[]= {0};
+		int  []puntos= new int[32];
 		boolean fingrupo;
 		for (Pais pais : lista) {
 			System.out.println("pais "+pais.getNombre());
 			i=1;
 			fingrupo=true;
 			System.out.println(lista.indexOf(pais));
-			while (fingrupo &&lista.indexOf(pais)<31 && pais.getGrupo()==lista.get(lista.indexOf(pais)+i).getGrupo()) {
+			while (fingrupo &&lista.indexOf(pais)<lista.size()-1 && pais.getGrupo()==lista.get(lista.indexOf(pais)+i).getGrupo()) {
 				System.out.println("contra: "+lista.get(lista.indexOf(pais)+i).getNombre());
 				pais.jugarPartido(lista.get(lista.indexOf(pais)+i));
 				i++;
-				if ((lista.indexOf(pais)+i)>31) {
+				if ((lista.indexOf(pais)+i)>lista.size()-1) {
 					fingrupo=false;
 				}
 			}
+			puntos[lista.indexOf(pais)]=0;
 			for (Partido partido : pais.getPartidos()) {
 				if (partido.getResultado().equals("Victoria")) {
 					puntos[lista.indexOf(pais)]+=3;
@@ -89,39 +90,6 @@ public class Encargado {
 			}
 			octavos.add(lista.get(pri));
 			octavos.add(lista.get(seg));
-		}
-		
-		for (i=0;i<32;i+=4) {
-			if (puntos[i]>=puntos[i+1]) {
-				if (puntos[i+1]>puntos[i+2]) {
-					octavos.add(lista.get(i));
-					octavos.add(lista.get(i+1));
-				} else if (puntos[i+1]==puntos[i+2]) {
-					/*cambiar partido por penal
-					lista.get(i+1).jugarPartido(lista.get(i+2));
-					if (lista.get(i+1).getPartidos().getLast().getResultado().equals("Victoria")) {
-						octavos.add(lista.get(i));
-						octavos.add(lista.get(i+1));
-					} else if (lista.get(i+1).getPartidos().getLast().getResultado().equals("Derrota")) {
-						octavos.add(lista.get(i));
-						octavos.add(lista.get(i+2));
-					} else {
-						octavos.add(lista.get(i));
-						octavos.add(lista.get(i+(int)(Math.random()+1)));
-					}*/
-				} else {
-					if (puntos[i+2]>puntos[i+3])
-					octavos.add(lista.get(i));
-					octavos.add(lista.get(i+2));
-				}
-			} else if (puntos[i+1]==puntos[i+2]) {
-				if (puntos[i+2]==puntos[i+3]) {
-					//penales
-				} else {
-					octavos.add(lista.get(i));
-					octavos.add(lista.get(i+2));
-				}
-			}
 		}
 		
 		return octavos;
