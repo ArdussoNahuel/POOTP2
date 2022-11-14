@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int goles1=0;
+		Encargado encargado=new Encargado(1,"Jorge Nitales","asdasd");
 		LinkedList<Pais> listapaises= new LinkedList<Pais>();
 		cargarPaises(listapaises);
 		JOptionPane.showMessageDialog(null, mostrarPaises(listapaises));
@@ -24,7 +24,7 @@ public class Main {
 			goles1+=aux;
 		}
 		System.out.println(goles1);*/
-		grupos(listapaises);
+		encargado.grupos(listapaises);
 		mostrarPartidos(listapaises.get(1));
 	}
 
@@ -77,36 +77,15 @@ public class Main {
 		return aux;
 	}
 	
-	public static void grupos(LinkedList<Pais> lista) {
-		int i=1;
-		boolean fingrupo;
-		for (Pais pais : lista) {
-			System.out.println("pais "+pais.getNombre());
-			i=1;
-			fingrupo=true;
-			System.out.println(lista.indexOf(pais));
-			while (fingrupo &&lista.indexOf(pais)<31 && pais.getGrupo()==lista.get(lista.indexOf(pais)+i).getGrupo()) {
-				System.out.println("contra: "+lista.get(lista.indexOf(pais)+i).getNombre());
-				boolean empate=pais.jugarPartido(lista.get(lista.indexOf(pais)+i));
-				while (empate) {
-					//JOptionPane.showMessageDialog(null, "Empate\n \nSe jugarán penales");
-					
-					empate=pais.jugarPartido(lista.get(lista.indexOf(pais)+i));
-				}
-				i++;
-				if ((lista.indexOf(pais)+i)>31) {
-					fingrupo=false;
-				}
-			}
-			
-		}
-		
-	}
+	
 	
 	public static void mostrarPartidos(Pais pais) {
+		String aux="";
 		for (Partido partidos : pais.getPartidos()) {
-			System.out.println("Partido contra: "+partidos.getAdversario().getNombre()+":\n"+partidos.getResultado()+" con "+partidos.getGoles());
+			aux+="Partido contra: "+partidos.getAdversario().getNombre()+"\n"+partidos.getResultado()+" con "+partidos.getGoles()+"\n \n";
+			
 		}
+		JOptionPane.showMessageDialog(null, aux);
 	}
 	
 }

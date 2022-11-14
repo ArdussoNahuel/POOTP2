@@ -87,7 +87,7 @@ public class Pais {
 				+ grupo + ", estado=" + estado + ", partidos=" + partidos + "]";
 	}
 	
-	public boolean jugarPartido(Pais adversario) {
+	public void jugarPartido(Pais adversario) {
 		int goles1=0;
 		int goles2=0;
 			for (int i=1; i< Math.round(this.getCalidad()*5);i++) {
@@ -96,17 +96,17 @@ public class Pais {
 			for (int i=1; i< Math.round(adversario.getCalidad()*5);i++) {
 				goles2+=(int)Math.round(Math.random()*adversario.getCalidad());
 			}
-			System.out.println(this.getNombre()+" "+goles1+" "+adversario.getNombre()+" "+goles2);
+			this.setGoles(this.getGoles()+goles1);
+			adversario.setGoles(adversario.getGoles()+goles2);
 			if (goles1>goles2) {
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Victoria",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Derrota",goles2));
-				return false;
 			} else if (goles1<goles2) {
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Derrota",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Victoria",goles2));
-				return false;
 			} else {
-				return true;
+				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Empate",goles1));
+				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Empate",goles2));
 			}
 	}
 	
