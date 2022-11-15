@@ -84,16 +84,16 @@ public class Pais {
 	@Override
 	public String toString() {
 		return "Pais [id=" + id + ", nombre=" + nombre + ", calidad=" + calidad + ", goles=" + goles + ", grupo="
-				+ grupo + ", estado=" + estado + ", partidos=" + partidos + "]";
+				+ grupo + ", estado=" + estado + "]";
 	}
 	
 	public void jugarPartido(Pais adversario) {
 		int goles1=0;
 		int goles2=0;
-			for (int i=1; i< Math.round(this.getCalidad()*5);i++) {
+			for (int i=1; i< Math.round(this.getCalidad()*5-1);i++) {
 				goles1+=(int)Math.round(Math.random()*this.getCalidad());
 			}
-			for (int i=1; i< Math.round(adversario.getCalidad()*5);i++) {
+			for (int i=1; i< Math.round(adversario.getCalidad()*5-1);i++) {
 				goles2+=(int)Math.round(Math.random()*adversario.getCalidad());
 			}
 			this.setGoles(this.getGoles()+goles1);
@@ -101,13 +101,43 @@ public class Pais {
 			if (goles1>goles2) {
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Victoria",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Derrota",goles2));
+				System.out.println("Victoria "+goles1+" a "+goles2);
 			} else if (goles1<goles2) {
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Derrota",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Victoria",goles2));
+				System.out.println("Derrota "+goles1+" a "+goles2);
 			} else {
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Empate",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Empate",goles2));
+				System.out.println("Empate "+goles1+" a "+goles2);
 			}
+	}
+	
+	public Pais penales(Pais adversario) {
+		int goles1=0;
+		int goles2=0;
+		double aux;
+		for (int i=0; i< 5;i++) {
+			aux=Math.random()*2;
+			if (aux>=this.getCalidad()) {
+				goles1++;
+			}
+		}
+		for (int i=0; i< 5;i++) {
+			aux=Math.random()*2;
+			if (aux>=adversario.getCalidad()) {
+				goles1++;
+			}
+		}
+		if (goles1>goles2) {
+			System.out.println("Victoria "+goles1+" a "+goles2);
+			return this;
+		} else if (goles1<goles2) {
+			System.out.println("Derrota "+goles1+" a "+goles2);
+			return adversario;
+		} else {
+			return this.penales(adversario);
+		}
 	}
 	
 	
