@@ -222,9 +222,9 @@ public class Main {
 		lista.add(new Pais(lista.size()+1,"Ecuador",0.9,0,"A",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Senegal",0.8,0,"A",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Holanda",1.2,0,"A",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Inglaterra",1.3,0,"B ",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Iran",0.7,0,"B ",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Estados Unidos",1.1,0,"B ",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Inglaterra",3,0,"B ",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Iran",3,0,"B ",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Estados Unidos",1,0,"B ",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Gales",1,0,"B ",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Argentina",1.5,0,"C",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Arabia Saudita",0.9,0,"C",true,new LinkedList<Partido>()));

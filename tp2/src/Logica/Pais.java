@@ -95,30 +95,37 @@ public class Pais {
 	public boolean jugarPartido(Pais adversario) {
 		int goles1=0;
 		int goles2=0;
-			for (int i=1; i< Math.round(this.getCalidad()*5-1);i++) {
+		System.out.println("Juega "+this.getNombre()+" contra "+adversario.getNombre());
+			for (int i=1; i< Math.round(this.getCalidad()*5-2);i++) {
 				goles1+=(int)Math.round(Math.random()*this.getCalidad());
 			}
-			for (int i=1; i< Math.round(adversario.getCalidad()*5-1);i++) {
+			for (int i=1; i< Math.round(adversario.getCalidad()*5-2);i++) {
 				goles2+=(int)Math.round(Math.random()*adversario.getCalidad());
 			}
 			this.setGoles(this.getGoles()+goles1);
 			adversario.setGoles(adversario.getGoles()+goles2);
 			if (goles1>goles2) {
-				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Victoria",goles1));
-				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Derrota",goles2));
+				this.partidos.add(new Partido(this.id*10+this.partidos.size()+1,adversario,"Victoria",goles1));
+				//System.out.println("Se añadio el partido "+this.getPartidos().getLast());
+				adversario.partidos.add(new Partido(adversario.id*10+adversario.partidos.size()+1,this,"Derrota",goles2));
+				System.out.println("confirmacion "+this.getPartidos().getLast());
 				adversario.setEstado(false);
-				//System.out.println("Victoria "+goles1+" a "+goles2);
+				System.out.println("Victoria "+goles1+" a "+goles2);
 				return false;
 			} else if (goles1<goles2) {
-				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Derrota",goles1));
+				this.partidos.add(new Partido(this.id*10+this.partidos.size()+1,adversario,"Derrota",goles1));
 				this.setEstado(false);
-				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Victoria",goles2));
-				//System.out.println("Derrota "+goles1+" a "+goles2);
+				//System.out.println("Se añadio el partido "+this.getPartidos().getLast());
+				adversario.partidos.add(new Partido(adversario.id*10+adversario.partidos.size()+1,this,"Victoria",goles2));
+				System.out.println("confirmacion "+this.getPartidos().getLast());
+				System.out.println("Derrota "+goles1+" a "+goles2);
 				return false;
 			} else {
-				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Empate",goles1));
-				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Empate",goles2));
-				//System.out.println("Empate "+goles1+" a "+goles2);
+				//System.out.println("Se añadio el partido "+this.getPartidos().getLast());
+				this.partidos.add(new Partido(this.id*10+this.partidos.size()+1,adversario,"Empate",goles1));
+				System.out.println("confirmacion "+this.getPartidos().getLast());
+				adversario.partidos.add(new Partido(adversario.id*10+adversario.partidos.size()+1,this,"Empate",goles2));
+				System.out.println("Empate "+goles1+" a "+goles2);
 				return true;
 			}
 	}
