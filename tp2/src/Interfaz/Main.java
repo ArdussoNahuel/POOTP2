@@ -12,12 +12,23 @@ public class Main {
 		// TODO Auto-generated method stub
 		LinkedList<Fase> fases = cargarFases(new LinkedList<Fase>());
 		Encargado encargado=new Encargado(1,"Jorge Nitales","asdasd");
-		LinkedList<Pais> listapaises= cargarPaises(new LinkedList<Pais>());
-		JOptionPane.showMessageDialog(null, "Lista base \n"+mostrarPaises(listapaises));
+		
+		fases.get(0).setPaises(cargarPaises(fases.get(0).getPaises()));
+		JOptionPane.showMessageDialog(null, "Lista base \n"+fases.get(0));
+		JOptionPane.showMessageDialog(null, "Lista octavos \n"+fases.get(1));
+		encargado.grupos(fases);
+		JOptionPane.showMessageDialog(null, "Lista base \n"+fases.get(0));
+		for (Fase fase : fases) {
+			if (fase.getNro()>0 && fase.getNro()<5) {
+				encargado.eliminatoria(fases, fase.getNro());
 
-		encargado.grupos(listapaises,fases);
-		JOptionPane.showMessageDialog(null, mostrarPaises(fases.get(0).getPaises()));
-		mostrarPartidos(listapaises.get(1));
+			}
+			JOptionPane.showMessageDialog(null, fase);
+
+			
+		}
+		mostrarPartidos(fases.get(0).getPaises().get(8));
+		mostrarPartidos(fases.get(0).getPaises().get(7));
 		//fases.get(0).getPaises().get(1).getPartidos().add(new Partido(200,listapaises.get(0),"Empate",2));
 		
 		
@@ -41,7 +52,7 @@ public class Main {
 		lista.add(new Pais(lista.size()+1,"Australia",0.9,0,"D",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Dinamarca",0.9,0,"D",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Tunez",0.7,0,"D",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"España",1.2,0,"E",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Espaï¿½a",1.2,0,"E",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Costa Rica",0.7,0,"E",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Alemania",1.6,0,"E",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Japon",0.7,0,"E",true,new LinkedList<Partido>()));
@@ -66,6 +77,7 @@ public class Main {
 		lista.add(new Fase(3,"Cuartos",new LinkedList<Pais>()));
 		lista.add(new Fase(4,"Semifinal",new LinkedList<Pais>()));
 		lista.add(new Fase(5,"Final",new LinkedList<Pais>()));
+		lista.add(new Fase(6,"Ganador",new LinkedList<Pais>()));
 		return lista;
 	}
 	
@@ -74,7 +86,7 @@ public class Main {
 		if (lista.isEmpty()) {
 		} else {
 			for (Pais pais : lista) {
-				aux+=pais+"\n";
+				aux+=pais;
 			}
 		}
 		return aux;
@@ -110,9 +122,14 @@ String []opciones= new String [fase.getPaises().size()];
 	}
 	
 	public static void mostrarPartidos(Pais pais) {
-		String aux="";
+		String aux="Pais "+pais.getNombre()+"\n";
 		for (Partido partidos : pais.getPartidos()) {
-			aux+="Partido contra: "+partidos.getAdversario().getNombre()+"\n"+partidos.getResultado()+" con "+partidos.getGoles()+"\n \n";
+			for (Partido adver : partidos.getAdversario().getPartidos()) {
+				if (adver.getAdversario().getNombre().equals(pais.getNombre())) {
+					aux+="Partido contra: "+partidos.getAdversario().getNombre()+"\nResultado del partido: "+partidos.getGoles()+" a "+adver.getGoles()+"\nResultado final: "+partidos.getResultado()+"\n \n";
+				}
+			}
+			
 			
 		}
 		JOptionPane.showMessageDialog(null, aux);

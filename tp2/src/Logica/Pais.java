@@ -83,11 +83,11 @@ public class Pais {
 
 	@Override
 	public String toString() {
-		return "Pais [id=" + id + ", nombre=" + nombre + ", calidad=" + calidad + ", goles=" + goles + ", grupo="
+		return "\nPais [id=" + id + ", nombre=" + nombre + ", calidad=" + calidad + ", goles=" + goles + ", grupo="
 				+ grupo + ", estado=" + estado + "]";
 	}
 	
-	public void jugarPartido(Pais adversario) {
+	public boolean jugarPartido(Pais adversario) {
 		int goles1=0;
 		int goles2=0;
 			for (int i=1; i< Math.round(this.getCalidad()*5-1);i++) {
@@ -101,15 +101,20 @@ public class Pais {
 			if (goles1>goles2) {
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Victoria",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Derrota",goles2));
-				System.out.println("Victoria "+goles1+" a "+goles2);
+				adversario.setEstado(false);
+				//System.out.println("Victoria "+goles1+" a "+goles2);
+				return false;
 			} else if (goles1<goles2) {
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Derrota",goles1));
+				this.setEstado(false);
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Victoria",goles2));
-				System.out.println("Derrota "+goles1+" a "+goles2);
+				//System.out.println("Derrota "+goles1+" a "+goles2);
+				return false;
 			} else {
 				this.partidos.add(new Partido(this.partidos.size()+1,adversario,"Empate",goles1));
 				adversario.partidos.add(new Partido(adversario.partidos.size()+1,this,"Empate",goles2));
-				System.out.println("Empate "+goles1+" a "+goles2);
+				//System.out.println("Empate "+goles1+" a "+goles2);
+				return true;
 			}
 	}
 	
@@ -119,23 +124,30 @@ public class Pais {
 		double aux;
 		for (int i=0; i< 5;i++) {
 			aux=Math.random()*2;
-			if (aux>=this.getCalidad()) {
+			//aux=Double.parseDouble(JOptionPane.showInputDialog("Ingresar tiro equipo "+this.getNombre()));
+			if (aux<=this.getCalidad()) {
 				goles1++;
 			}
 		}
 		for (int i=0; i< 5;i++) {
 			aux=Math.random()*2;
-			if (aux>=adversario.getCalidad()) {
-				goles1++;
+			//aux=Double.parseDouble(JOptionPane.showInputDialog("Ingresar tiro equipo "+adversario.getNombre()));
+			if (aux<=adversario.getCalidad()) {
+				goles2++;
 			}
 		}
 		if (goles1>goles2) {
-			System.out.println("Victoria "+goles1+" a "+goles2);
+			this.getPartidos().getLast().setResultado("Victoria por penales "+goles1+" a "+goles2);
+			adversario.getPartidos().getLast().setResultado("Derrota por penales "+goles2+" a "+goles1);
+			adversario.setEstado(false);
 			return this;
 		} else if (goles1<goles2) {
-			System.out.println("Derrota "+goles1+" a "+goles2);
+			this.getPartidos().getLast().setResultado("Derrota por penales "+goles1+" a "+goles2);
+			this.setEstado(false);
+			adversario.getPartidos().getLast().setResultado("Victoria por penales "+goles2+" a "+goles1);
 			return adversario;
 		} else {
+			System.out.println("penales again");
 			return this.penales(adversario);
 		}
 	}

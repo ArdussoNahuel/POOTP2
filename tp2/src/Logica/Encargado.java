@@ -1,6 +1,9 @@
 package Logica;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
 
 public class Encargado {
 	private int dni;
@@ -95,32 +98,34 @@ public class Encargado {
 		}
 	}*/
 	
-	public void grupos(LinkedList<Pais> lista, LinkedList<Fase> fases) {
+	public void grupos(LinkedList<Fase> fases) {
 		int i;
 		int  []puntos= new int[33];
+		int []primeros=new int[8];
+		int []segundos=new int[8];
 		boolean fingrupo;
-		for (Pais pais : lista) {
-			System.out.println("pais "+pais.getNombre());
+		for (Pais pais : fases.get(0).getPaises()) {
+			//JOptionPane.showMessageDialog(null, fases.get(1));
+			//System.out.println("pais "+pais.getNombre());
 			i=1;
 			fingrupo=true;
-			System.out.println(lista.indexOf(pais));
-			while (fingrupo &&lista.indexOf(pais)<lista.size()-1 && pais.getGrupo()==lista.get(lista.indexOf(pais)+i).getGrupo()) {
-				System.out.println("contra: "+lista.get(lista.indexOf(pais)+i).getNombre());
-				pais.jugarPartido(lista.get(lista.indexOf(pais)+i));
+			//System.out.println(fases.get(0).getPaises().indexOf(pais));
+			while (fingrupo &&fases.get(0).getPaises().indexOf(pais)<fases.get(0).getPaises().size()-1 && pais.getGrupo()==fases.get(0).getPaises().get(fases.get(0).getPaises().indexOf(pais)+i).getGrupo()) {
+				//System.out.println("contra: "+fases.get(0).getPaises().get(fases.get(0).getPaises().indexOf(pais)+i).getNombre());
+				pais.jugarPartido(fases.get(0).getPaises().get(fases.get(0).getPaises().indexOf(pais)+i));
 				i++;
-				if ((lista.indexOf(pais)+i)>lista.size()-1) {
+				if ((fases.get(0).getPaises().indexOf(pais)+i)>fases.get(0).getPaises().size()-1) {
 					fingrupo=false;
 				}
 			}
-			puntos[lista.indexOf(pais)]=0;
+			puntos[fases.get(0).getPaises().indexOf(pais)]=0;
 			for (Partido partido : pais.getPartidos()) {
 				if (partido.getResultado().equals("Victoria")) {
-					puntos[lista.indexOf(pais)]+=3;
+					puntos[fases.get(0).getPaises().indexOf(pais)]+=3;
 				} else if (partido.getResultado().equals("Empate")) {
-					puntos[lista.indexOf(pais)]+=1;
+					puntos[fases.get(0).getPaises().indexOf(pais)]+=1;
 				}
 			}
-			fases.get(0).getPaises().add(pais);
 		}
 		puntos[32]=-1;
 		int pri;
@@ -129,25 +134,58 @@ public class Encargado {
 			pri=32;
 			seg=32;
 			for (int k=i;k<i+4;k++) {
+				fases.get(0).getPaises().get(k).setEstado(false);
 				if (puntos[k]>puntos[pri]) {
 					seg=pri;
 					pri=k;
 				} else if (puntos[k]==puntos[pri]) {
-					//penales prim puesto
+					if (fases.get(0).getPaises().get(k).getGoles()>fases.get(0).getPaises().get(pri).getGoles()) {
+						seg=pri;
+						pri=k;
+					} else {
+						seg=k;
+					}
 				} else if (puntos[k]>puntos[seg]) {
 					seg=k;
 				} else if (puntos[k]==puntos[seg]) {
-					//penales seg puesto
+					if (fases.get(0).getPaises().get(k).getGoles()>fases.get(0).getPaises().get(seg).getGoles()) {
+						seg=k;
+					}
 				}
 			}
-			fases.get(1).getPaises().add(lista.get(pri));
-			fases.get(1).getPaises().add(lista.get(seg));
+			primeros[i/4]=pri;
+			segundos[i/4]=seg;
+			fases.get(0).getPaises().get(pri).setEstado(true);
+			fases.get(0).getPaises().get(seg).setEstado(true);
+			//fases.get(1).getPaises().add(fases.get(0).getPaises().get(pri));
+			//fases.get(1).getPaises().add(fases.get(0).getPaises().get(seg));
 		}
+		for (i=0;i<8;i+=2) {
+				fases.get(1).getPaises().add(fases.get(0).getPaises().get(primeros[i]));
+				fases.get(1).getPaises().add(fases.get(0).getPaises().get(segundos[i+1]));
+		}
+		for (i=0;i<8;i+=2) {
+			fases.get(1).getPaises().add(fases.get(0).getPaises().get(segundos[i]));
+			fases.get(1).getPaises().add(fases.get(0).getPaises().get(primeros[i+1]));
+	}
+		
 		
 	}
 	
-	public void octavos(LinkedList<Pais> lista) {
-		//for ()
+	public void eliminatoria(LinkedList<Fase> fases, int fase) {
+		System.out.println("Se jue la fase "+fases.get(fase).getDescr());
+		for (int i=0;i<fases.get(fase).getPaises().size(); i+=2) {
+			if(fases.get(fase).getPaises().get(i).jugarPartido(fases.get(fase).getPaises().get(i+1))) {
+				fases.get(fase).getPaises().get(i).penales(fases.get(fase).getPaises().get(i+1));
+			}
+			if (fases.get(fase).getPaises().get(i).isEstado()) {
+				fases.get(fase+1).getPaises().add(fases.get(fase).getPaises().get(i));;
+			}
+			if (fases.get(fase).getPaises().get(i+1).isEstado()) {
+				fases.get(fase+1).getPaises().add(fases.get(fase).getPaises().get(i+1));;
+			}
+			
+		}
 	}
 	
 	
