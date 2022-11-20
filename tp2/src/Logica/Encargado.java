@@ -173,7 +173,6 @@ public class Encargado {
 	}
 	
 	public void eliminatoria(LinkedList<Fase> fases, int fase) {
-		System.out.println("Se jue la fase "+fases.get(fase).getDescr());
 		for (int i=0;i<fases.get(fase).getPaises().size(); i+=2) {
 			if(fases.get(fase).getPaises().get(i).jugarPartido(fases.get(fase).getPaises().get(i+1))) {
 				fases.get(fase).getPaises().get(i).penales(fases.get(fase).getPaises().get(i+1));

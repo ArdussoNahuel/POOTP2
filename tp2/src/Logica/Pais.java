@@ -147,7 +147,6 @@ public class Pais {
 			adversario.getPartidos().getLast().setResultado("Victoria por penales "+goles2+" a "+goles1);
 			return adversario;
 		} else {
-			System.out.println("penales again");
 			return this.penales(adversario);
 		}
 	}
