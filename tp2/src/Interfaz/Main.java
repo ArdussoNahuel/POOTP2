@@ -162,7 +162,7 @@ public class Main {
 		} else {
 			estado="Descalificado";
 		}
-		String aux="Pais "+pais.getNombre()+"\n"+"Goles: "+pais.getGoles()+"\nEstado: "+estado+"\n------------------------------------------\n";;
+		String aux="Pais "+pais.getNombre()+"\n"+"Goles: "+pais.getGoles()+"\nEstado: "+estado+"\n------------------------------------------------\n";;
 		for (Partido partidos : pais.getPartidos()) {
 			for (Partido adver : partidos.getAdversario().getPartidos()) {
 				if (adver.getAdversario().getNombre().equals(pais.getNombre())) {
