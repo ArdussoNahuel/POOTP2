@@ -83,8 +83,13 @@ public class Pais {
 
 	@Override
 	public String toString() {
-		return "\nPais [id=" + id + ", nombre=" + nombre + ", calidad=" + calidad + ", goles=" + goles + ", grupo="
-				+ grupo + ", estado=" + estado + "]";
+		String aux;
+		if (this.estado) {
+			aux="Activo";
+		} else {
+			aux="Descalificado";
+		}
+		return nombre+" [Goles: " + goles + "] [Grupo: " + grupo + "] [Estado: " + aux + "]";
 	}
 	
 	public boolean jugarPartido(Pais adversario) {
@@ -125,14 +130,14 @@ public class Pais {
 		for (int i=0; i< 5;i++) {
 			aux=Math.random()*2;
 			//aux=Double.parseDouble(JOptionPane.showInputDialog("Ingresar tiro equipo "+this.getNombre()));
-			if (aux<=this.getCalidad()) {
+			if (aux<=(this.getCalidad()/1.25)) {
 				goles1++;
 			}
 		}
 		for (int i=0; i< 5;i++) {
 			aux=Math.random()*2;
 			//aux=Double.parseDouble(JOptionPane.showInputDialog("Ingresar tiro equipo "+adversario.getNombre()));
-			if (aux<=adversario.getCalidad()) {
+			if (aux<=(this.getCalidad()/1.25)) {
 				goles2++;
 			}
 		}
@@ -147,9 +152,37 @@ public class Pais {
 			adversario.getPartidos().getLast().setResultado("Victoria por penales "+goles2+" a "+goles1);
 			return adversario;
 		} else {
-			return this.penales(adversario);
+			return this.muerteSubita(adversario,goles1,goles2);
 		}
 	}
 	
+	public Pais muerteSubita(Pais adversario, int goles1,int goles2) {
+		double aux;
+		while (goles1==goles2) {
+				aux=Math.random()*2;
+				//aux=Double.parseDouble(JOptionPane.showInputDialog("Ingresar tiro equipo "+this.getNombre()));
+				if (aux<=(this.getCalidad()/1.25)) {
+					goles1++;
+				}
+				aux=Math.random()*2;
+				//aux=Double.parseDouble(JOptionPane.showInputDialog("Ingresar tiro equipo "+adversario.getNombre()));
+				if (aux<=(this.getCalidad()/1.25)) {
+					goles2++;
+				}
+		}
+		if (goles1>goles2) {
+			this.getPartidos().getLast().setResultado("Victoria por penales "+goles1+" a "+goles2);
+			adversario.getPartidos().getLast().setResultado("Derrota por penales "+goles2+" a "+goles1);
+			adversario.setEstado(false);
+			return this;
+		} else{
+			this.getPartidos().getLast().setResultado("Derrota por penales "+goles1+" a "+goles2);
+			this.setEstado(false);
+			adversario.getPartidos().getLast().setResultado("Victoria por penales "+goles2+" a "+goles1);
+			return adversario;
+	
+		}
+		
+	}
 	
 }
