@@ -171,7 +171,7 @@ public class Main {
 		String aux="Pais "+pais.getNombre()+"\n"+"Goles: "+pais.getGoles()+"\nEstado: "+estado+"\n------------------------------------------------\n";;
 		for (Partido partidos : pais.getPartidos()) {
 			for (Partido adver : partidos.getAdversario().getPartidos()) {
-				if (adver.getAdversario().getNombre().equals(pais.getNombre())) {
+				if (adver.getId()==partidos.getId()) {
 					aux+="Partido contra: "+partidos.getAdversario().getNombre()+"\nResultado del partido: "+partidos.getGoles()+" a "+adver.getGoles()+"\nResultado final: "+partidos.getResultado()+"\n \n";
 				}
 			}
@@ -222,9 +222,9 @@ public class Main {
 		lista.add(new Pais(lista.size()+1,"Ecuador",0.9,0,"A",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Senegal",0.8,0,"A",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Holanda",1.2,0,"A",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Inglaterra",3,0,"B ",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Iran",3,0,"B ",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Estados Unidos",1,0,"B ",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Inglaterra",1.3,0,"B ",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Iran",0.8,0,"B ",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Estados Unidos",1.1,0,"B ",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Gales",1,0,"B ",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Argentina",1.5,0,"C",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Arabia Saudita",0.9,0,"C",true,new LinkedList<Partido>()));
@@ -235,17 +235,17 @@ public class Main {
 		lista.add(new Pais(lista.size()+1,"Dinamarca",0.9,0,"D",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Tunez",0.7,0,"D",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"España",1.3,0,"E",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Costa Rica",0.7,0,"E",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Costa Rica",0.9,0,"E",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Alemania",1.6,0,"E",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Japon",0.7,0,"E",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Japon",0.8,0,"E",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Belgica",1.1,0,"F",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Canada",0.7,0,"F",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Canada",0.8,0,"F",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Marruecos",0.8,0,"F",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Croacia",1.15,0,"F",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Brasil",1.6,0,"G",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Serbia",1.1,0,"G",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Suiza",0.85,0,"G",true,new LinkedList<Partido>()));
-		lista.add(new Pais(lista.size()+1,"Camerun",0.7,0,"G",true,new LinkedList<Partido>()));
+		lista.add(new Pais(lista.size()+1,"Camerun",0.8,0,"G",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Portugal",1.15,0,"H",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Gana",0.7,0,"H",true,new LinkedList<Partido>()));
 		lista.add(new Pais(lista.size()+1,"Uruguay",1.15,0,"H",true,new LinkedList<Partido>()));
