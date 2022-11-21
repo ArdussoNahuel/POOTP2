@@ -86,6 +86,9 @@ public class Pais {
 		String aux;
 		if (this.estado) {
 			aux="Activo";
+			if (this.partidos.size()==7) {
+				aux="Ganador";
+			}
 		} else {
 			aux="Descalificado";
 		}
