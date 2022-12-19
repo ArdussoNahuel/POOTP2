@@ -78,7 +78,7 @@ public class Estadisticas {
 				for (Partido partidos : pais.getPartidos()) {
 					if (partidos.getResultado().contains("Victoria")) {
 						vic++;
-					} else if (partidos.getResultado().equalsIgnoreCase("Derrota")) {
+					} else if (partidos.getResultado().contains("Derrota")) {
 						der++;
 					} else {
 						emp++;
@@ -98,7 +98,7 @@ public class Estadisticas {
 				for (Partido partidos : pais.getPartidos()) {
 					if (partidos.getResultado().contains("Victoria")) {
 						victorias++;
-					} else if (partidos.getResultado().equalsIgnoreCase("Derrota")) {
+					} else if (partidos.getResultado().contains("Derrota")) {
 						derrotas++;
 					} else {
 						empates++;
