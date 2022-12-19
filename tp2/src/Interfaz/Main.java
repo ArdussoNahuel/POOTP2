@@ -13,7 +13,6 @@ public class Main {
 		// TODO Auto-generated method stub
 		LinkedList<Fase> fases = cargarFases(new LinkedList<Fase>());
 		Encargado encargado=new Encargado(1,"Jorge Nitales","asdasd");
-		
 		fases.get(0).setPaises(cargarPaises(fases.get(0).getPaises()));
 		//JOptionPane.showMessageDialog(null, "Lista base \n"+fases.get(0));
 		//JOptionPane.showMessageDialog(null, "Lista octavos \n"+fases.get(1));
@@ -52,7 +51,7 @@ public class Main {
 			titulo="l ganador";
 			descripcion=fases.get(fase).getPaises().getFirst().getNombre()+" es campeón del mundo";
 			opciones[0]="Información del ganador";
-			opciones[1]="Salir del programa";
+			opciones[1]="Estadisticas generales";
 		}
 		if (fases.get(1).getPaises().isEmpty()) {
 			opciones[0]="Comenzar mundial";
@@ -66,7 +65,7 @@ public class Main {
 				,opciones // el objeto
 				,opciones[0] // posicion del que va aparecer seleccionado
 				);
-		if (opcion==null || opcion.equals("Salir del programa")) {
+		if (opcion==null) {
 			JOptionPane.showMessageDialog(null, "Gracias por disfrutar el mundial de Qatar 2022\nNos vemos :D");
 		} else {
 			switch (opcion) {
@@ -124,6 +123,10 @@ public class Main {
 				menuPais(fases.get(fase).getPaises().getFirst());
 				menu(fases, encargado, fase);
 				break;
+			case "Estadisticas generales":
+				Estadisticas estadisticas=new Estadisticas("","","","","");
+				JOptionPane.showMessageDialog(null, estadisticas.estadisticas(fases.get(0).getPaises()));
+				menu(fases, encargado, fase);
 			}
 		}
 		
@@ -303,9 +306,7 @@ String []opciones= new String [fase.getPaises().size()];
 			return null;
 	}
 	
-	public static void mostrarPartidos(Pais pais) {
-		
-	}
+	
 	
 }
 
